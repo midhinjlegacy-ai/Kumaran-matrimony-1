@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#941b36">
+<title>Kumaran Matrimony</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f6f3f4;
+    color:#222;
+}
+
+header{
+    background:linear-gradient(135deg,#86132e,#c73558);
+    color:white;
+    padding:18px;
+    text-align:center;
+}
+
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;font-size:13px}
+
+nav{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    background:white;
+    padding:9px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    box-shadow:0 2px 10px #0002;
+}
+
+nav button{
+    border:0;
+    background:#f2e8eb;
+    color:#8b1732;
+    padding:11px 15px;
+    border-radius:22px;
+    white-space:nowrap;
+    font-weight:bold;
+}
+
+main{
+    max-width:900px;
+    margin:auto;
+    padding:15px;
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 3px 15px #0001;
+}
+
+.hero{
+    background:linear-gradient(135deg,#86132e,#d04b6c);
+    color:white;
+    text-align:center;
+    border-radius:20px;
+    padding:30px 20px;
+}
+
+.hero h2{color:white;font-size:29px}
+.ring{font-size:60px}
+
+h2{color:#8b1732}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:12px;
+    margin-bottom:6px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+textarea{min-height:100px}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+@media(max-width:600px){
+    .grid{grid-template-columns:1fr}
+}
+
+.primary{
+    width:100%;
+    background:#961b38;
+    color:white;
+    border:0;
+    padding:14px;
+    border-radius:11px;
+    margin-top:15px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.secondary{
+    background:#eee;
+    color:#8b1732;
+    border:0;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.price{
+    text-align:center;
+    color:#941b36;
+    font-size:42px;
+    font-weight:bold;
+}
+
+.success{
+    background:#e6f7eb;
+    color:#176a30;
+    padding:12px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.warning{
+    background:#fff3cd;
+    color:#745600;
+    padding:12px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.profile{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.profile img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:50%;
+    background:#eee;
+}
+
+.profile h3{margin:0 0 6px}
+.profile p{margin:4px 0;color:#666}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    margin:3px;
+    background:#f8e6ea;
+    color:#8b1732;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.preview{
+    width:130px;
+    height:130px;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+    margin:10px auto;
+    background:#eee;
+}
+
+.empty{
+    text-align:center;
+    color:#777;
+    padding:30px;
+}
+
+.payment-box{
+    background:#fff7f8;
+    border:1px solid #f0d8de;
+    border-radius:15px;
+    padding:18px;
+    margin-top:15px;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    padding:30px;
+    font-size:13px;
+}
+
+.admin-member{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:12px;
+    background:#fff;
+}
+
+.admin-badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:12px;
+    margin:3px 0;
+    background:#fff3cd;
+    color:#856404;
+}
+
+.admin-badge.approved{
+    background:#e8f5e9;
+    color:#176b2c;
+}
+
+.hidden{display:none!important}
+
+.stat-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+}
+
+.stat{
+    background:#f8e6ea;
+    padding:15px;
+    text-align:center;
+    border-radius:12px;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:#8b1732;
+}
+
+@media(max-width:650px){
+    .stat-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+.small{
+    font-size:12px;
+    color:#777;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #eee;
+    margin:20px 0;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.actions button{
+    flex:1;
+    min-width:120px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    font-size:14px;
+}
+
+th{
+    color:#8b1732;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:#0008;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:15px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    background:white;
+    border-radius:18px;
+    width:100%;
+    max-width:500px;
+    max-height:90vh;
+    overflow:auto;
+    padding:20px;
+}
+
+.close{
+    float:right;
+    border:0;
+    background:#eee;
+    border-radius:50%;
+    width:32px;
+    height:32px;
+}
+
+.notice{
+    padding:12px;
+    border-radius:10px;
+    background:#f8e6ea;
+    color:#8b1732;
+    margin-bottom:12px;
+}
+
+.login-box{
+    max-width:450px;
+    margin:30px auto;
+}
+
+.avatar-placeholder{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f1dfe4;
+    color:#941b36;
+    font-size:35px;
+    font-weight:bold;
+}
+
+.member-card{
+    border:1px solid #eee;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.member-card .actions{
+    margin-top:12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💍 Kumaran Matrimony</h1>
+    <p>Find your perfect life partner</p>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('register')">Register</button>
+    <button onclick="showPage('profiles')">Profiles</button>
+    <button onclick="showPage('membership')">Membership</button>
+    <button onclick="showPage('profile')">My Profile</button>
+    <button onclick="showPage('admin')">Admin</button>
+</nav>
+
+<main>
+
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="ring">💍</div>
+        <h2>Kumaran Matrimony</h2>
+        <p>Connect with your perfect life partner.</p>
+
+        <button
+            class="primary"
+            style="background:white;color:#941b36"
+            onclick="showPage('register')">
+            Create Your Profile
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>Welcome</h2>
+
+        <p>
+            Kumaran Matrimony helps you create your matrimonial
+            profile and discover suitable matches.
+        </p>
+
+        <div class="grid">
+
+            <div class="notice">
+                <strong>Easy Registration</strong>
+                <br>
+                Create your profile quickly.
+            </div>
+
+            <div class="notice">
+                <strong>Profile Search</strong>
+                <br>
+                Browse available profiles.
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>How It Works</h2>
+
+        <div class="member-card">
+            <h3>1. Register</h3>
+            <p>
+                Create your account and matrimonial profile.
+            </p>
+        </div>
+
+        <div class="member-card">
+            <h3>2. Complete Profile</h3>
+            <p>
+                Add your personal and partner preferences.
+            </p>
+        </div>
+
+        <div class="member-card">
+            <h3>3. Membership</h3>
+            <p>
+                Activate your membership to access the service.
+            </p>
+        </div>
+
+        <div class="member-card">
+            <h3>4. Find Matches</h3>
+            <p>
+                Browse profiles and find suitable matches.
+            </p>
+        </div>
+    </div>
+
+</section>
+
+
+<section id="register" class="page">
+
+    <div class="card">
+
+        <h2>Create Account</h2>
+
+        <form id="accountForm">
+
+            <label>Email</label>
+            <input
+                type="email"
+                id="accountEmail"
+                required
+                placeholder="Enter email">
+
+            <label>Mobile Number</label>
+            <input
+                type="tel"
+                id="accountMobile"
+                required
+                placeholder="Enter mobile number">
+
+            <label>Password</label>
+            <input
+                type="password"
+                id="accountPassword"
+                required
+                placeholder="Create password">
+
+            <button class="primary" type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <div id="accountMessage"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Matrimonial Profile</h2>
+
+        <form id="profileForm">
+
+            <label>Full Name</label>
+            <input
+                id="profileName"
+                required
+                placeholder="Enter full name">
+
+            <div class="grid">
+
+                <div>
+                    <label>Age</label>
+                    <input
+                        type="number"
+                        id="profileAge"
+                        min="18"
+                        max="100"
+                        required>
+                </div>
+
+                <div>
+                    <label>Gender</label>
+                    <select id="profileGender" required>
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="grid">
+
+                <div>
+                    <label>City</label>
+                    <input
+                        id="profileCity"
+                        placeholder="City">
+                </div>
+
+                <div>
+                    <label>Education</label>
+                    <input
+                        id="profileEducation"
+                        placeholder="Education">
+                </div>
+
+            </div>
+
+            <label>Occupation</label>
+            <input
+                id="profileOccupation"
+                placeholder="Occupation">
+
+            <label>About You</label>
+            <textarea
+                id="profileAbout"
+                placeholder="Tell something about yourself"></textarea>
+
+            <label>Partner Preference</label>
+            <textarea
+                id="profilePreference"
+                placeholder="Describe your partner preference"></textarea>
+
+            <label>Profile Photo</label>
+            <input
+                type="file"
+                id="profilePhoto"
+                accept="image/*"
+                onchange="previewPhoto(event)">
+
+            <img
+                id="photoPreview"
+                class="preview hidden">
+
+            <button
+                class="primary"
+                type="submit">
+                Save Matrimonial Profile
+            </button>
+
+        </form>
+
+        <div id="profileMessage"></div>
+
+    </div>
+
+</section>
+
+
+<section id="profiles" class="page">
+
+    <div class="card">
+
+        <h2>Member Profiles</h2>
+
+        <p class="small">
+            Profiles saved on this device are displayed here.
+        </p>
+
+        <div class="grid">
+
+            <div>
+                <label>Search</label>
+                <input
+                    id="searchInput"
+                    placeholder="Search name or city"
+                    oninput="searchProfiles()">
+            </div>
+
+            <div>
+                <label>Gender</label>
+                <select
+                    id="searchGender"
+                    onchange="searchProfiles()">
+
+                    <option value="">All</option>
+                    <option>Male</option>
+                    <option>Female</option>
+
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="profileList"></div>
+
+</section>
+
+
+<section id="membership" class="page">
+
+    <div class="card">
+
+        <h2>Membership</h2>
+
+        <div id="membershipStatus"></div>
+
+        <div class="payment-box">
+
+            <h3>3 Month Membership</h3>
+
+            <div class="price">
+                ₹200
+            </div>
+
+            <p style="text-align:center">
+                Membership duration: 3 months
+            </p>
+
+            <hr>
+
+            <h3>Payment</h3>
+
+            <p>
+                Pay ₹200 using Google Pay / UPI.
+            </p>
+
+            <p>
+                <strong>UPI ID:</strong>
+                <span id="upiDisplay"></span>
+            </p>
+
+            <label>Payment Reference / Transaction ID</label>
+
+            <input
+                id="paymentReference"
+                placeholder="Enter transaction ID">
+
+            <button
+                class="primary"
+                onclick="submitPayment()">
+                Submit Payment
+            </button>
+
+            <div id="paymentMessage"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="profile" class="page">
+
+    <div class="card">
+
+        <h2>My Profile</h2>
+
+        <div id="myProfile"></div>
+
+    </div>
+
+</section>
+
+
+<section id="admin" class="page">
+
+    <div id="adminContent"></div>
+
+</section>
+
+</main>
+
+
+<footer>
+    © 2026 Kumaran Matrimony
+</footer>
+
+
+<div id="modal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal()">
+            ×
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/*
+==================================================
+KUMARAN MATRIMONY
+USER + ADMIN SINGLE HTML APPLICATION
+==================================================
+*/
+
+
+const UPI_ID =
+    "midhinjlegacy@oksbi";
+
+
+const MEMBERSHIP_DAYS =
+    90;
+
+
+/*
+==================================================
+PAGE NAVIGATION
+==================================================
+*/
+
+function showPage(page){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(el){
+
+            el.classList.remove("active");
+
+        });
+
+
+    const target =
+        document.getElementById(page);
+
+
+    if(target){
+
+        target.classList.add("active");
+
+    }
+
+
+    if(page === "profiles"){
+
+        searchProfiles();
+
+    }
+
+
+    if(page === "profile"){
+
+        renderMyProfile();
+
+    }
+
+
+    if(page === "membership"){
+
+        updateMembership();
+
+    }
+
+
+    if(page === "admin"){
+
+        loadAdminPage();
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/*
+==================================================
+SAFE HTML
+==================================================
+*/
+
+function safe(value){
+
+    if(value === undefined || value === null){
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/*
+==================================================
+ACCOUNT
+==================================================
+*/
+
+function getAccount(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "account"
+        ) || "null"
+    );
+
+}
+
+
+function saveAccount(account){
+
+    localStorage.setItem(
+        "account",
+        JSON.stringify(account)
+    );
+
+}
+
+
+document
+    .getElementById("accountForm")
+    .addEventListener(
+        "submit",
+        function(e){
+
+            e.preventDefault();
+
+
+            const account = {
+
+                email:
+                    document
+                    .getElementById(
+                        "accountEmail"
+                    )
+                    .value
+                    .trim(),
+
+                mobile:
+                    document
+                    .getElementById(
+                        "accountMobile"
+                    )
+                    .value
+                    .trim(),
+
+                password:
+                    document
+                    .getElementById(
+                        "accountPassword"
+                    )
+                    .value
+
+            };
+
+
+            saveAccount(account);
+
+
+            document
+                .getElementById(
+                    "accountMessage"
+                )
+                .innerHTML =
+                '<div class="success">' +
+                'Account created successfully.' +
+                '</div>';
+
+        }
+    );
+
+
+/*
+==================================================
+PROFILE
+==================================================
+*/
+
+function getProfile(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "profile"
+        ) || "null"
+    );
+
+}
+
+
+function saveProfile(profile){
+
+    localStorage.setItem(
+        "profile",
+        JSON.stringify(profile)
+    );
+
+}
+
+
+let selectedPhoto = "";
+
+
+function previewPhoto(event){
+
+    const file =
+        event.target.files[0];
+
+
+    if(!file){
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            selectedPhoto =
+                e.target.result;
+
+
+            const preview =
+                document.getElementById(
+                    "photoPreview"
+                );
+
+
+            preview.src =
+                selectedPhoto;
+
+
+            preview.classList.remove(
+                "hidden"
+            );
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+document
+    .getElementById("profileForm")
+    .addEventListener(
+        "submit",
+        function(e){
+
+            e.preventDefault();
+
+
+            const profile = {
+
+                name:
+                    document
+                    .getElementById(
+                        "profileName"
+                    )
+                    .value
+                    .trim(),
+
+                age:
+                    document
+                    .getElementById(
+                        "profileAge"
+                    )
+                    .value,
+
+                gender:
+                    document
+                    .getElementById(
+                        "profileGender"
+                    )
+                    .value,
+
+                city:
+                    document
+                    .getElementById(
+                        "profileCity"
+                    )
+                    .value
+                    .trim(),
+
+                education:
+                    document
+                    .getElementById(
+                        "profileEducation"
+                    )
+                    .value
+                    .trim(),
+
+                occupation:
+                    document
+                    .getElementById(
+                        "profileOccupation"
+                    )
+                    .value
+                    .trim(),
+
+                about:
+                    document
+                    .getElementById(
+                        "profileAbout"
+                    )
+                    .value
+                    .trim(),
+
+                preference:
+                    document
+                    .getElementById(
+                        "profilePreference"
+                    )
+                    .value
+                    .trim(),
+
+                photo:
+                    selectedPhoto
+
+            };
+
+
+            saveProfile(profile);
+
+
+            document
+                .getElementById(
+                    "profileMessage"
+                )
+                .innerHTML =
+                '<div class="success">' +
+                'Matrimonial profile saved successfully.' +
+                '</div>';
+
+
+            searchProfiles();
+
+            renderMyProfile();
+
+        }
+    );
+
+
+/*
+==================================================
+PROFILE LIST
+==================================================
+*/
+
+function searchProfiles(){
+
+    const list =
+        document.getElementById(
+            "profileList"
+        );
+
+
+    if(!list){
+
+        return;
+
+    }
+
+
+    const profile =
+        getProfile();
+
+
+    if(!profile){
+
+        list.innerHTML =
+            '<div class="card empty">' +
+            'No profile has been created yet.' +
+            '</div>';
+
+        return;
+
+    }
+
+
+    const search =
+        (
+            document
+            .getElementById(
+                "searchInput"
+            ) || {}
+        ).value || "";
+
+
+    const gender =
+        (
+            document
+            .getElementById(
+                "searchGender"
+            ) || {}
+        ).value || "";
+
+
+    const text =
+        search
+        .toLowerCase();
+
+
+    const matchesSearch =
+        !text ||
+        (
+            String(profile.name || "")
+            .toLowerCase()
+            .includes(text)
+        ) ||
+        (
+            String(profile.city || "")
+            .toLowerCase()
+            .includes(text)
+        );
+
+
+    const matchesGender =
+        !gender ||
+        profile.gender === gender;
+
+
+    if(!matchesSearch || !matchesGender){
+
+        list.innerHTML =
+            '<div class="card empty">' +
+            'No matching profile found.' +
+            '</div>';
+
+        return;
+
+    }
+
+
+    const photo =
+        profile.photo
+        ?
+        '<img src="' +
+        profile.photo +
+        '">'
+        :
+        '<div class="avatar-placeholder">' +
+        safe(
+            (profile.name || "M")
+            .charAt(0)
+            .toUpperCase()
+        ) +
+        '</div>';
+
+
+    list.innerHTML =
+
+        '<div class="card member-card">' +
+
+        '<div class="profile">' +
+
+        photo +
+
+        '<div>' +
+
+        '<h3>' +
+        safe(profile.name) +
+        '</h3>' +
+
+        '<p>' +
+        safe(profile.age) +
+        ' years • ' +
+        safe(profile.gender) +
+        '</p>' +
+
+        '<p>' +
+        safe(profile.city) +
+        '</p>' +
+
+        '</div>' +
+
+        '</div>' +
+
+        '<hr>' +
+
+        '<p><strong>Education:</strong> '
